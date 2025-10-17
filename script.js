@@ -418,7 +418,8 @@ function set_is_use_lgbt(u, b) {
 }
 
 function new_game(x, y) {
-    field = new Array();;
+    field = new Array();
+    time_stop();
     fillGrid(x, y);
     started = false;
     if (customm) {
