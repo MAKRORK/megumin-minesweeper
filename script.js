@@ -30,6 +30,7 @@ let seconds = 0;
 let customm = false;
 let custon_sc = false;
 let is_settings_open = false;
+let paralax = true;
 
 
 
@@ -587,24 +588,45 @@ function reloadPage() {
 }
 
 document.addEventListener('mousemove', (e) => {
-    let w = window.innerWidth;
-    let o_x = ((e.clientX - w / 2) / w) * max_offset;
-    let o_y = ((e.clientY - w / 2) / w) * max_offset;
-    document.getElementById('restart_btn').style.transform = `translate(${Math.round(o_x / 8)}px, ${Math.round(o_y / 8)}px) scale(var(--main-scale))`;
-    if (!is_settings_open) {
-        main_space.style.transform = `translate(${Math.round(o_x)}px, ${Math.round(o_y)}px)`;
+    if (paralax) {
+        let w = window.innerWidth;
+        let o_x = ((e.clientX - w / 2) / w) * max_offset;
+        let o_y = ((e.clientY - w / 2) / w) * max_offset;
+        document.getElementById('restart_btn').style.transform = `translate(${Math.round(o_x / 8)}px, ${Math.round(o_y / 8)}px) scale(var(--main-scale))`;
+        if (!is_settings_open) {
+            main_space.style.transform = `translate(${Math.round(o_x)}px, ${Math.round(o_y)}px)`;
 
-        main_back.style.boxShadow = `${Math.round((o_x / max_offset) * 10)}px ${Math.round((o_y / max_offset) * 10)}px 0px rgba(70, 14, 43, 0.5)`;
-        document.querySelectorAll(".up-button").forEach(b => {
-            b.style.filter = `drop-shadow(${Math.round((o_x / max_offset) * 5)}px ${Math.round((o_y / max_offset) * 5)}px 0px rgba(70, 14, 43, 0.5))`;
-        });
-    }
-    else {
-        settings_window.style.transform = `translate(${Math.round(o_x)}px, ${Math.round(o_y)}px) scale(var(--main-scale))`;
-        settings_window.style.filter = `drop-shadow(${Math.round((o_x / max_offset) * 5)}px ${Math.round((o_y / max_offset) * 5)}px 0px rgba(70, 14, 43, 0.5))`;
-        document.getElementById('restart_btn').style.filter = `drop-shadow(${Math.round((o_x / max_offset) * 5)}px ${Math.round((o_y / max_offset) * 5)}px 0px rgba(70, 14, 43, 0.5))`;
+            main_back.style.boxShadow = `${Math.round((o_x / max_offset) * 10)}px ${Math.round((o_y / max_offset) * 10)}px 0px rgba(70, 14, 43, 0.5)`;
+            document.querySelectorAll(".up-button").forEach(b => {
+                b.style.filter = `drop-shadow(${Math.round((o_x / max_offset) * 5)}px ${Math.round((o_y / max_offset) * 5)}px 0px rgba(70, 14, 43, 0.5))`;
+            });
+        }
+        else {
+            settings_window.style.transform = `translate(${Math.round(o_x)}px, ${Math.round(o_y)}px) scale(var(--main-scale))`;
+            settings_window.style.filter = `drop-shadow(${Math.round((o_x / max_offset) * 5)}px ${Math.round((o_y / max_offset) * 5)}px 0px rgba(70, 14, 43, 0.5))`;
+            document.getElementById('restart_btn').style.filter = `drop-shadow(${Math.round((o_x / max_offset) * 5)}px ${Math.round((o_y / max_offset) * 5)}px 0px rgba(70, 14, 43, 0.5))`;
+        }
     }
 });
+
+function parallaxChecked() {
+    let c = document.getElementById("parallax");
+    if (c.checked == true) {
+
+    }
+    else {
+        document.getElementById('restart_btn').style.transform = `translate(${0}px, ${0}px) scale(var(--main-scale))`;
+        main_space.style.transform = `translate(${0}px, ${0}px)`;
+        main_back.style.boxShadow = `${4}px ${4}px 0px rgba(70, 14, 43, 0.5)`;
+        document.querySelectorAll(".up-button").forEach(b => {
+            b.style.filter = `drop-shadow(${2}px ${2}px 0px rgba(70, 14, 43, 0.5))`;
+        });
+        settings_window.style.transform = `translate(${0}px, ${0}px) scale(var(--main-scale))`;
+        settings_window.style.filter = `drop-shadow(${2}px ${2}px 0px rgba(70, 14, 43, 0.5))`;
+        document.getElementById('restart_btn').style.filter = `drop-shadow(${2}px ${2}px 0px rgba(70, 14, 43, 0.5))`;
+    }
+    paralax = !paralax;
+}
 
 function meguminBTNPressed() {
     new_game(COLS, ROWS);
