@@ -388,7 +388,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     sett_size_buttons[0].disabled = true;
     sett_scale_buttons[1].disabled = true;
-    set_is_use_lgbt(true, true);
+    set_is_use_lgbt(false, false);
 
 });
 
