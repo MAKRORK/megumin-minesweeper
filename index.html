@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Megumin Minesweeper</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div>
+        <img class="megumin-img" src="img/Meguminn.png">
+    </div>
+    <button id="restart_btn" class="up-button restart" oncontextmenu="return false;" onclick="reloadPage()"></button>
+    <div class="minesweeper-uwu">
+        <div id="main_space" class="main-space">
+            <div id="button_space" class="button-space">
+                <div class="buttons-place">
+                    <button id="settings" class="up-button settings" oncontextmenu="return false;"></button>
+                    <button id="change" class="up-button change" oncontextmenu="return false;"
+                        onclick="changeIns()"></button>
+                </div>
+            </div>
+            <div id="main_back" class="main-back">
+                <div id="main_frame" class="main-frame">
+                    <div id="menu_frame" class="pixel-frame">
+                        <div id="menu" class="menu">
+                            <div class="counter" id="counter_bombs">
+                                <div class="counter-numb" id="0"></div>
+                                <div class="counter-numb" id="1"></div>
+                                <div class="counter-numb" id="2"></div>
+                            </div>
+                            <button id="megumin_button" class="megumin-button" onclick="meguminBTNPressed()"
+                                oncontextmenu="return false;"></button>
+                            <div class="counter" id="counter_time">
+                                <div class="counter-numb" id="0"></div>
+                                <div class="counter-numb" id="1"></div>
+                                <div class="counter-numb" id="2"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="grid_frame" class="pixel-frame">
+                        <div id="grid" class="grid"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-overlay">
+            <div class="modal-window">
+                <div class="sett">
+                    <p class="sett-text">Settings</p>
+                    <img src="img/Sett.png" class="u">
+                </div>
+                <div class="linee"></div>
+                <div class="sett">
+                    <p class="size-text">Field size</p>
+                </div>
+                <div class="mda" id="size_buttns">
+                    <button class="button-size" value="[9, 9]">9x9</button>
+                    <button class="button-size" value="[16, 16]">16x16</button>
+                    <button class="button-size" value="[30, 16]">30x16</button>
+                </div>
+                <div class=" mda-mda">
+                    <button id="custom_size" class="button-size" value="custom">Custom</button>
+                    <div class="custom-size">
+                        <div class="arrows"><input id="custom_size_x" type="number" min="1" max="115" value="9"
+                                class="numb-input">
+                            <div class="arrow up" data-target="#custom_size_x"></div>
+                            <div class="arrow down" data-target="#custom_size_x"></div>
+                        </div>
+                        <span class="sp">x</span>
+                        <div class="arrows"><input id="custom_size_y" type="number" min="1" max="50" value="9"
+                                class="numb-input">
+                            <div class="arrow up" data-target="#custom_size_y"></div>
+                            <div class="arrow down" data-target="#custom_size_y"></div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="sett">
+                    <span class="sett-text" style="color: #460e2b;">Mines</span>
+                    <div class="arrows"><input id="custom_mines" type="number" min="5" max="75" value="5"
+                            class="numb-input">
+                        <div class="arrow up" data-target="#custom_mines"></div>
+                        <div class="arrow down" data-target="#custom_mines"></div>
+                    </div>
+                </div>
+
+                <div class="linee"></div>
+                <div class="sett">
+                    <p class="size-text">Zoom</p>
+                </div>
+                <div id="sett_scale_battns" class="mda">
+                    <button class="button-size" value="1">1x</button>
+                    <button class="button-size" value="2">2x</button>
+                    <button class="button-size" value="3">3x</button>
+                </div>
+                <div class="mda-mda-mda">
+
+                    <div>
+                        <button id="custom_scale_butt" class="button-size" value="custom">Custom</button>
+                        <div class="arrows"><input id="custom_scale" type="number" min="1" max="5" value="1"
+                                class="numb-input">
+                            <div class="arrow up" data-target="#custom_scale"></div>
+                            <div class="arrow down" data-target="#custom_scale"></div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div id="u_r_l" class="linee" style="display: none;"></div>
+                <div id="u_r" class="pym" style="display: none;">
+                    <label class="pixel-checkbox" style="font-size: 24px; color: #460e2b;">
+                        Use RBM
+                        <input id="use_rbm" onclick="useRBMchecked()" type="checkbox">
+                        <span class="box"></span>
+                    </label>
+                </div>
+                <div class="linee"></div>
+                <div class="pym">
+                    <button class="close-btn">Ok</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,549 @@
+:root {
+    --main-scale: 2;
+    --showel-offset: -48px;
+    --megumin-button-offset: 0px;
+    --tile-offset: -32px 0px;
+    --margin-line: 8px;
+}
+
+html {
+    overflow: hidden;
+}
+
+body {
+    user-select: none;
+    height: 100%;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    background-size: cover;
+    background-image: url('img/back.png');
+}
+
+.minesweeper-uwu {
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+    margin: 0;
+
+}
+
+@font-face {
+    font-family: 'PixelFont';
+    src: url('BoldPixels.woff') format('woff');
+}
+
+.megumin-img {
+    height: 512px;
+    width: auto;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.atlas-button {
+    width: 16px;
+    height: 16px;
+
+    background-image: url('img/Sprite_mine.png');
+    background-size: 128px 128px;
+    background-color: transparent;
+    background-position: 0 0;
+    image-rendering: pixelated;
+    border: none;
+    cursor: pointer;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
+.atlas-button:hover {
+    background-position: -80px 0;
+}
+
+.atlas-button:active {
+    background-position: -32px 0;
+}
+
+.atlas-button:disabled {
+    background-position: 0 0;
+}
+
+.atlas-button.flag {
+    background-position: -16px 0;
+}
+
+.megumin-button {
+    width: 36px;
+    height: 36px;
+    position: relative;
+
+    background-image: url('img/Sprite_mine_2.png');
+    background-size: 128px 128px;
+    background-color: transparent;
+    background-position: 0 -80px;
+    image-rendering: pixelated;
+    border: none;
+    cursor: pointer;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
+.megumin-button:hover {
+    background-position: -72px -80px;
+}
+
+.megumin-button:active {
+    background-position: -36px -80px;
+}
+
+.megumin-button::after {
+    content: "";
+    position: absolute;
+    transform: translate(2px, 2px);
+    top: 0;
+    left: 0;
+    width: 32px;
+    height: 32px;
+    background-image: url('img/Sprite_mine.png');
+    background-size: 128px 128px;
+    background-position: var(--megumin-button-offset) -32px;
+    image-rendering: pixelated;
+    pointer-events: none;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 16px);
+    grid-template-rows: repeat(3, 16px);
+
+    gap: 0;
+    image-rendering: pixelated;
+
+}
+
+.pixel-frame {
+    border: 4px solid transparent;
+    border-image: url('img/frame_1.png') 4 fill repeat;
+    image-rendering: pixelated;
+    display: flex;
+    justify-content: center;
+    width: 144px;
+    height: 64px;
+    margin: 0;
+
+}
+
+.main-back {
+    width: 0px;
+    height: 0px;
+    background-color: #460e2b;
+    image-rendering: pixelated;
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.5);
+}
+
+.main-frame {
+    border: 4px solid transparent;
+    border-image: url('img/frame_2.png') 4 fill repeat;
+    image-rendering: pixelated;
+    display: block;
+    font-size: 0;
+    width: 152px;
+    height: 64px;
+    margin: 0;
+    transform: scale(var(--main-scale));
+    transform-origin: top left;
+}
+
+.main-space {
+    margin: 0;
+}
+
+.menu {
+    width: 144px;
+    height: 48px;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    white-space: nowrap;
+    grid-template-columns: 1fr 1fr 1fr;
+
+    grid-template-columns: auto auto auto;
+
+    align-items: center;
+}
+
+.button-space {
+    height: 32px;
+    width: auto;
+}
+
+.buttons-place {
+    display: flex;
+    transform: scale(var(--main-scale));
+    transform-origin: top left;
+}
+
+.up-button {
+    width: 24px;
+    height: 24px;
+    position: relative;
+
+    background-image: url('img/Sprite_mine_2.png');
+    background-size: 128px 128px;
+    background-position: 0 0;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    margin-right: 8px;
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.5);
+}
+
+.up-button:hover {
+    background-position: -24px 0;
+}
+
+.up-button:active {
+    background-position: -48px 0;
+}
+
+.up-button.settings::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    background-image: url('img/Sprite_mine_2.png');
+    background-size: 128px 128px;
+    background-position: 0px -24px;
+    image-rendering: pixelated;
+    pointer-events: none;
+}
+
+.up-button.change::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    background-image: url('img/Sprite_mine_2.png');
+    background-size: 128px 128px;
+    background-position: var(--showel-offset) -24px;
+    image-rendering: pixelated;
+    pointer-events: none;
+}
+
+.up-button.restart {
+    position: absolute;
+    top: 32px;
+    right: 32px;
+    transform-origin: top right;
+    transform: scale(var(--main-scale));
+    z-index: 1010;
+}
+
+.up-button.restart::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    background-image: url('img/Sprite_mine_2.png');
+    background-size: 128px 128px;
+    background-position: -96px -24px;
+    image-rendering: pixelated;
+    pointer-events: none;
+}
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.3);
+
+    backdrop-filter: blur(5px);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    pointer-events: none;
+
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+
+.modal-window {
+    font-family: 'PixelFont';
+    font-size: 18px;
+    width: 256px;
+    height: 384px;
+    background-image: url('img/settings.png');
+    background-size: 256px 384px;
+    background-position: 0 0;
+    image-rendering: pixelated;
+
+    transform: scale(var(--main-scale));
+
+    z-index: 1001;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.pixel-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.pixel-checkbox input {
+    display: none;
+}
+
+.pixel-checkbox .box {
+    width: 24px;
+    height: 24px;
+    background-image: url('img/Sprite_mine_2.png');
+    background-size: 128px 128px;
+    background-position: 0 -48px;
+    image-rendering: pixelated;
+    cursor: pointer;
+}
+
+.close-btn {
+    width: 64px;
+    height: 48px;
+    position: relative;
+
+    background-image: url('img/Sprite_mine_3.png');
+    background-size: 128px 128px;
+    background-position: 0 0;
+    image-rendering: pixelated;
+    border: none;
+    cursor: pointer;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    font-family: 'PixelFont', monospace;
+    font-size: 24px;
+    color: #ff8274;
+    background-color: transparent;
+}
+
+.close-btn:hover {
+    background-position: 0 -48px;
+}
+
+.close-btn:active {
+    background-position: -64px 0;
+}
+
+
+.pixel-checkbox input:checked+.box {
+    background-position: -48px -48px;
+}
+
+.mda {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    white-space: nowrap;
+    grid-template-columns: 1fr auto 1fr;
+    margin-left: 16px;
+    margin-right: 16px;
+    margin-top: 6px;
+    margin-bottom: 0px;
+}
+
+.pym {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 6px;
+}
+
+.mda-mda {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    margin-top: 6px;
+    grid-template-columns: auto auto auto;
+}
+
+.mda-mda-mda {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 6px;
+
+}
+
+.sett-text {
+    font-size: 24px;
+    color: #ff8274;
+    margin-top: 6px;
+    margin-bottom: 0px;
+    padding: 0;
+
+}
+
+.sett {
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+
+}
+
+.size-text {
+    margin-top: 4px;
+    color: #460e2b;
+    margin-bottom: 0px;
+    padding: 0;
+    margin-left: 0px;
+}
+
+
+.button-size {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    color: #460e2b;
+    font-family: 'PixelFont', monospace;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.button-size:hover {
+    color: #c65c51;
+}
+
+.button-size:active {
+    color: #ff8274;
+}
+
+.button-size:disabled {
+    color: #ff8274;
+}
+
+.u {
+    transform: translate(0, 2px) scale(2);
+
+}
+
+.custom-size {
+    display: grid;
+    gap: 0px;
+    grid-template-columns: auto auto auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.numb-input {
+    background-color: #460e2b;
+    border-color: #ff8274;
+    border-style: solid;
+    font-family: 'PixelFont', monospace;
+    font-size: 16px;
+    color: #ff8274;
+    margin-left: 0px;
+    width: 36px;
+    height: auto;
+    outline: none;
+}
+
+.arrows {
+    position: relative;
+    width: 48px;
+
+    display: inline-block;
+}
+
+.arrow {
+    position: absolute;
+    right: 0px;
+    width: 12px;
+    height: 11px;
+    background-image: url('img/Sprite_mine.png');
+    background-size: 128px 128px;
+    image-rendering: pixelated;
+    cursor: pointer;
+}
+
+.arrow.up {
+    top: 0;
+    background-position: -96px 0px;
+}
+
+.arrow.down {
+    bottom: 0;
+    background-position: -108px 0px;
+}
+
+.numb-input::-webkit-outer-spin-button,
+.numb-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.numb-input {
+    -moz-appearance: textfield;
+
+}
+
+.numb-input:focus {
+    border-color: #c65c51;
+    border-style: solid;
+}
+
+.sp {
+    display: inline-block;
+    color: #460e2b;
+    text-align: center;
+    font-family: 'PixelFont', monospace;
+    margin: 0 4px;
+
+}
+
+.linee {
+    display: block;
+    height: 2px;
+    width: auto;
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-top: var(--margin-line);
+    margin-bottom: var(--margin-line);
+    background-color: #460e2b;
+}
+
+.counter {
+    width: 48px;
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+.counter-numb {
+    width: 16px;
+    height: 32px;
+    position: relative;
+
+    background-image: url('img/numbs.png');
+    background-size: 256px 32px;
+    background-position: -176px 0;
+    image-rendering: pixelated;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    background-color: transparent;
+}
