@@ -127,7 +127,7 @@ function start(coord) {
             }
         }
     }
-    if (tiles.length == 0) {
+    if (tiles.length < MINES) {
         for (let y = 0; y < ROWS; y += 1) {
             for (let x = 0; x < COLS; x += 1) {
                 if (Math.abs(x - coord[0]) != 0 || Math.abs(y - coord[1]) != 0) {
