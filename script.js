@@ -128,6 +128,7 @@ function start(coord) {
         }
     }
     if (tiles.length < MINES) {
+        tiles = new Array();
         for (let y = 0; y < ROWS; y += 1) {
             for (let x = 0; x < COLS; x += 1) {
                 if (Math.abs(x - coord[0]) != 0 || Math.abs(y - coord[1]) != 0) {
@@ -135,6 +136,7 @@ function start(coord) {
                 }
             }
         }
+
     }
     tiles = shuffle(tiles);
     for (let i = 0; i < MINES; i += 1) {
@@ -203,6 +205,10 @@ function flag(coord) {
 }
 
 function open_tile(coord) {
+    if (field[coord[1]][coord[0]][2]) {
+        flag_counter -= 1;
+        counter_print('counter_bombs', MINES - flag_counter);
+    }
     field[coord[1]][coord[0]][1].style.backgroundPosition = `${(-16 * (field[coord[1]][coord[0]][3] - 1))}px ${-16}px`;
     field[coord[1]][coord[0]][4] = true;
     progress();
@@ -272,6 +278,10 @@ function openNine(coord) {
 
 function openNineRe(coord) {
     const hm = [-1, 0, 1];
+    if (field[coord[1]][coord[0]][2]) {
+        flag_counter -= 1;
+        counter_print('counter_bombs', MINES - flag_counter);
+    }
     field[coord[1]][coord[0]][1].style.backgroundPosition = `${-32}px ${0}px`;
     field[coord[1]][coord[0]][4] = true;
     progress();
@@ -518,7 +528,7 @@ document.querySelectorAll('.arrow.up').forEach(btn => {
         if (value < target.max) target.value = value + 1;
         if (target.id == "custom_size_x" || target.id == "custom_size_y") {
             let m = document.getElementById('custom_size_x').value * document.getElementById('custom_size_y').value;
-            document.getElementById('custom_mines').value = Math.round(m * mine_density);
+            document.getElementById('custom_mines').value = countMines(m);
         }
     });
 });
@@ -531,12 +541,16 @@ document.querySelectorAll('.arrow.down').forEach(btn => {
         if (value > target.min) target.value = value - 1;
         if (target.id == "custom_size_x" || target.id == "custom_size_y") {
             let m = document.getElementById('custom_size_x').value * document.getElementById('custom_size_y').value;
-            document.getElementById('custom_mines').value = Math.round(m * mine_density);;
+            document.getElementById('custom_mines').value = countMines(m);
         }
     });
 });
 
 const numbs = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+
+function countMines(m) {
+    return Math.round(m * mine_density);
+}
 
 document.querySelectorAll(".numb-input").forEach(inp => {
     inp.addEventListener('change', (e) => {
@@ -545,7 +559,8 @@ document.querySelectorAll(".numb-input").forEach(inp => {
         if (value > inp.max) inp.value = inp.max;
         if (inp.id == "custom_size_x" || inp.id == "custom_size_y") {
             let m = document.getElementById('custom_size_x').value * document.getElementById('custom_size_y').value;
-            document.getElementById('custom_mines').value = Math.round(m * mine_density);;
+            document.getElementById('custom_mines').max = m - 1;
+            document.getElementById('custom_mines').value = countMines(m);
         }
     });
     inp.addEventListener('keydown', e => {
