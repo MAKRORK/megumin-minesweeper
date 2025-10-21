@@ -31,6 +31,7 @@ let customm = false;
 let custon_sc = false;
 let is_settings_open = false;
 let paralax = true;
+let is_use_parallax = true;
 
 
 
@@ -399,23 +400,34 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     sett_size_buttons[0].disabled = true;
     sett_scale_buttons[1].disabled = true;
-    set_is_use_lgbt(true, true);
+    if (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+        set_is_use_lgbt(false, false);
+        set_is_use_parallax(false, false);
+    }
+    else {
+        set_is_use_lgbt(true, true);
+        set_is_use_parallax(true, true);
+    }
 
 });
 
 function set_is_use_lgbt(u, b) {
     is_use_rbm = u;
+    let mar = 8;
     if (u) {
-        document.documentElement.style.setProperty('--margin-line', `${8}px`);
         document.getElementById('u_r').style.display = 'flex';
         document.getElementById('u_r_l').style.display = 'flex';
-
+        mar = 8;
     }
     else {
-        document.documentElement.style.setProperty('--margin-line', `${15}px`);
         document.getElementById('u_r').style.display = 'none';
-        document.getElementById('u_r_l').style.display = 'none';
+        if (!is_use_parallax) {
+            document.getElementById('u_r_l').style.display = 'none';
+            mar = 15;
+        }
     }
+    if (navigator.userAgent.toLowerCase().includes('firefox')) { mar -= 3; }
+    document.documentElement.style.setProperty('--margin-line', `${mar}px`);
     if (b) {
         document.getElementById("change").style.display = 'none';
         document.getElementById("use_rbm").checked = true;
@@ -425,6 +437,34 @@ function set_is_use_lgbt(u, b) {
         document.getElementById("change").style.display = 'block';
         document.getElementById("use_rbm").checked = false;
         USE_RBM = false;
+    }
+}
+function set_is_use_parallax(u, b) {
+    is_use_parallax = u;
+    let mar = 8;
+    if (u) {
+        document.getElementById('p_r').style.display = 'flex';
+        document.getElementById('u_r_l').style.display = 'flex';
+        mar = 8;
+    }
+    else {
+        document.getElementById('p_r').style.display = 'none';
+        if (!is_use_rbm) {
+            document.getElementById('u_r_l').style.display = 'none';
+            mar = 15;
+        }
+    }
+    if (navigator.userAgent.toLowerCase().includes('firefox')) { mar -= 3; }
+    document.documentElement.style.setProperty('--margin-line', `${mar}px`);
+    if (b) {
+
+        document.getElementById("parallax").checked = true;
+        paralax = true;
+    }
+    else {
+        document.getElementById("parallax").checked = false;
+        paralax = false;
+        non_par_mode();
     }
 }
 
@@ -528,6 +568,7 @@ document.querySelectorAll('.arrow.up').forEach(btn => {
         if (value < target.max) target.value = value + 1;
         if (target.id == "custom_size_x" || target.id == "custom_size_y") {
             let m = document.getElementById('custom_size_x').value * document.getElementById('custom_size_y').value;
+            document.getElementById('custom_mines').max = m - 1;
             document.getElementById('custom_mines').value = countMines(m);
         }
     });
@@ -541,6 +582,7 @@ document.querySelectorAll('.arrow.down').forEach(btn => {
         if (value > target.min) target.value = value - 1;
         if (target.id == "custom_size_x" || target.id == "custom_size_y") {
             let m = document.getElementById('custom_size_x').value * document.getElementById('custom_size_y').value;
+            document.getElementById('custom_mines').max = m - 1;
             document.getElementById('custom_mines').value = countMines(m);
         }
     });
@@ -624,21 +666,25 @@ document.addEventListener('mousemove', (e) => {
     }
 });
 
+function non_par_mode() {
+    document.getElementById('restart_btn').style.transform = `translate(${0}px, ${0}px) scale(var(--main-scale))`;
+    main_space.style.transform = `translate(${0}px, ${0}px)`;
+    main_back.style.boxShadow = `${4}px ${4}px 0px rgba(70, 14, 43, 0.5)`;
+    document.querySelectorAll(".up-button").forEach(b => {
+        b.style.filter = `drop-shadow(${2}px ${2}px 0px rgba(70, 14, 43, 0.5))`;
+    });
+    settings_window.style.transform = `translate(${0}px, ${0}px) scale(var(--main-scale))`;
+    settings_window.style.filter = `drop-shadow(${2}px ${2}px 0px rgba(70, 14, 43, 0.5))`;
+    document.getElementById('restart_btn').style.filter = `drop-shadow(${2}px ${2}px 0px rgba(70, 14, 43, 0.5))`;
+}
+
 function parallaxChecked() {
     let c = document.getElementById("parallax");
     if (c.checked == true) {
 
     }
     else {
-        document.getElementById('restart_btn').style.transform = `translate(${0}px, ${0}px) scale(var(--main-scale))`;
-        main_space.style.transform = `translate(${0}px, ${0}px)`;
-        main_back.style.boxShadow = `${4}px ${4}px 0px rgba(70, 14, 43, 0.5)`;
-        document.querySelectorAll(".up-button").forEach(b => {
-            b.style.filter = `drop-shadow(${2}px ${2}px 0px rgba(70, 14, 43, 0.5))`;
-        });
-        settings_window.style.transform = `translate(${0}px, ${0}px) scale(var(--main-scale))`;
-        settings_window.style.filter = `drop-shadow(${2}px ${2}px 0px rgba(70, 14, 43, 0.5))`;
-        document.getElementById('restart_btn').style.filter = `drop-shadow(${2}px ${2}px 0px rgba(70, 14, 43, 0.5))`;
+        non_par_mode();
     }
     paralax = !paralax;
 }
